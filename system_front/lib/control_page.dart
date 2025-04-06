@@ -7,7 +7,7 @@ import 'package:system_front/src/users.dart';
 
 class ControlPage extends StatefulWidget {
   const ControlPage({super.key});
-  static bool? isOn;
+  static bool isOn = false;
   @override
   State<ControlPage> createState() => _ControlPageState();
 }
@@ -19,12 +19,9 @@ class _ControlPageState extends State<ControlPage> {
   bool isLogs = false;
   bool isOptions = false;
   bool connectd = false;
-  bool? isOn = ControlPage.isOn;
 
   @override
   void initState() {
-    // TODO: implement initState
-    isOn = false;
     super.initState();
   }
 

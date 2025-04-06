@@ -7,6 +7,7 @@ import 'package:system_front/src/equipment.dart';
 // ignore: must_be_immutable
 class OptionsPage extends StatefulWidget {
   bool connected;
+  static Socket? socket;
   OptionsPage({super.key, required this.connected});
 
   @override
@@ -43,16 +44,20 @@ class _OptionsPageState extends State<OptionsPage> {
                     setState(() {
                       ControlPage.isOn = !ControlPage.isOn!;
                       for (int i = 0; i < workList.length; i++) {
-                        workList[i] = ControlPage.isOn!;
+                        workList[i] = ControlPage.isOn;
                       }
                     });
                   },
                   icon:
-                      ControlPage.isOn!
+                      ControlPage.isOn
                           ? Icon(Icons.check_circle, color: Colors.lightGreen)
                           : Icon(Icons.cancel, color: Colors.red),
                 ),
-                Text(ControlPage.isOn! ? 'Остановить производство' : 'Запустить производство'),
+                Text(
+                  ControlPage.isOn
+                      ? 'Остановить производство'
+                      : 'Запустить производство',
+                ),
               ],
             ),
           ),

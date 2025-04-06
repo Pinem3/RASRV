@@ -15,7 +15,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Align(
-        alignment: AlignmentGeometry.directional(0, 0),
+        alignment: AlignmentDirectional(0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 10,
@@ -31,7 +31,7 @@ class _UserPageState extends State<UserPage> {
                 children: [
                   Container(
                     height: 56,
-                    alignment: AlignmentGeometry.directional(0, -1),
+                    alignment: AlignmentDirectional(0, -1),
                     child: Text('Логин:'),
                   ),
                   SizedBox(
@@ -57,7 +57,7 @@ class _UserPageState extends State<UserPage> {
                 children: [
                   Container(
                     height: 56,
-                    alignment: AlignmentGeometry.directional(0, -1),
+                    alignment: AlignmentDirectional(0, -1),
                     child: Text('Пароль:'),
                   ),
                   SizedBox(
