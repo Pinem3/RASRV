@@ -13,7 +13,7 @@ class Server {
   late HttpServer _server;
   late PostgreSQLConnection _dbConnection;
 
-  Server({,
+  Server({
     required this.dbHost,
     required this.dbPort,
     required this.dbName,
@@ -98,14 +98,10 @@ class Server {
         case 'GET':
           // Получение списка оборудования
           final results = await _dbConnection.query('SELECT * FROM "Equipment"');
-          final equipmentList = results.map((row) {
-            return {
-              'equipmentId': row[0],
-              'status': row[1],
-              'name': row[2],
-              'class': row[3],
-            };
-          }).toList();
+          final equipmentList =
+              results.map((row) {
+                return {'equipmentId': row[0], 'status': row[1], 'name': row[2], 'class': row[3]};
+              }).toList();
 
           request.response
             ..statusCode = HttpStatus.ok
@@ -200,16 +196,17 @@ class Server {
           JOIN "User" u ON p."User ID" = u."User ID"
         ''');
 
-        final productionList = results.map((row) {
-          return {
-            'productionId': row[0],
-            'name': row[1],
-            'material': row[2],
-            'equipment': row[3],
-            'process': row[4],
-            'user': row[5],
-          };
-        }).toList();
+        final productionList =
+            results.map((row) {
+              return {
+                'productionId': row[0],
+                'name': row[1],
+                'material': row[2],
+                'equipment': row[3],
+                'process': row[4],
+                'user': row[5],
+              };
+            }).toList();
 
         request.response
           ..statusCode = HttpStatus.ok
@@ -247,18 +244,20 @@ class Server {
 
         final results = await _dbConnection.query(
           query,
-          substitutionValues: productionId != null ? {'productionId': int.parse(productionId)} : null,
+          substitutionValues:
+              productionId != null ? {'productionId': int.parse(productionId)} : null,
         );
 
-        final logsList = results.map((row) {
-          return {
-            'logId': row[0],
-            'timestamp': row[1].toString(),
-            'content': row[2],
-            'type': row[3],
-            'productionId': row[4],
-          };
-        }).toList();
+        final logsList =
+            results.map((row) {
+              return {
+                'logId': row[0],
+                'timestamp': row[1].toString(),
+                'content': row[2],
+                'type': row[3],
+                'productionId': row[4],
+              };
+            }).toList();
 
         request.response
           ..statusCode = HttpStatus.ok
@@ -324,7 +323,6 @@ class Server {
 
 void main() async {
   final server = Server(
-    port: 8080,
     dbHost: 'localhost',
     dbPort: 5432,
     dbName: 'dry_mix_production',

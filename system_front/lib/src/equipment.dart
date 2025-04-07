@@ -68,20 +68,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   },
                   icon:
                       workList[index]
-                          ? Icon(
-                            Icons.check_circle,
-                            color: Colors.lightGreen,
-                            size: 40,
-                          )
+                          ? Icon(Icons.check_circle, color: Colors.lightGreen, size: 40)
                           : Icon(Icons.cancel, color: Colors.red, size: 40),
                 ),
                 Text(
                   equipmentList[index],
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                  ),
+                  style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.normal),
                 ),
               ],
             ),
@@ -127,9 +119,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
                                     });
                                   },
                                   items:
-                                      classList.map<DropdownMenuItem<String>>((
-                                        String value,
-                                      ) {
+                                      classList.map<DropdownMenuItem<String>>((String value) {
                                         return DropdownMenuItem<String>(
                                           value: value,
                                           child: Text(value),
@@ -142,8 +132,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
                                   controller: paramValueController,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText:
-                                        '${masterData[index]} ${masterparam[index]}',
+                                    hintText: '${masterData[index]} ${masterparam[index]}',
                                   ),
                                 ),
                               ],
@@ -188,10 +177,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
       //   ],
       // ),
       actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
-        ),
+        TextButton(onPressed: () => Navigator.pop(context, 'Cancel'), child: const Text('Cancel')),
       ],
     );
   }

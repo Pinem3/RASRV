@@ -6,16 +6,15 @@ import 'package:system_front/src/equipment.dart';
 
 // ignore: must_be_immutable
 class OptionsPage extends StatefulWidget {
-  bool connected;
+  static bool connected = false;
   static Socket? socket;
-  OptionsPage({super.key, required this.connected});
+  OptionsPage({super.key});
 
   @override
   State<OptionsPage> createState() => _OptionsPageState();
 }
 
 class _OptionsPageState extends State<OptionsPage> {
-  bool connected = false;
   Socket? socket;
   String val = 'подключиться к серверу';
   List<bool> workList = EquipmentPage.workList;
@@ -42,22 +41,23 @@ class _OptionsPageState extends State<OptionsPage> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      ControlPage.isOn = !ControlPage.isOn!;
+                      ControlPage.isOn = !ControlPage.isOn;
                       for (int i = 0; i < workList.length; i++) {
                         workList[i] = ControlPage.isOn;
                       }
                     });
+                    if (socket != null) {
+                      ControlPage.isOn
+                          ? socket!.write("Производство запущено")
+                          : socket!.write("Производство приостановлено");
+                    }
                   },
                   icon:
                       ControlPage.isOn
                           ? Icon(Icons.check_circle, color: Colors.lightGreen)
                           : Icon(Icons.cancel, color: Colors.red),
                 ),
-                Text(
-                  ControlPage.isOn
-                      ? 'Остановить производство'
-                      : 'Запустить производство',
-                ),
+                Text(ControlPage.isOn ? 'Остановить производство' : 'Запустить производство'),
               ],
             ),
           ),
@@ -78,29 +78,26 @@ class _OptionsPageState extends State<OptionsPage> {
               spacing: 20,
               children: [
                 IconButton(
-                  onPressed:
-                      connected
-                          ? null
-                          : () async {
-                            try {
-                              socket = await Socket.connect(
-                                '127.0.0.1',
-                                228,
-                                timeout: Duration(seconds: 5),
-                              );
-                              setState(() {
-                                val = 'подключено';
-                                connected = true;
-                              });
-                            } catch (e) {
-                              setState(() {
-                                connected = false;
-                                val = 'Ошибка подключения';
-                              });
-                            }
-                          },
+                  onPressed: () async {
+                    try {
+                      socket = await Socket.connect(
+                        '127.0.0.1',
+                        5000,
+                        timeout: Duration(seconds: 5),
+                      );
+                      setState(() {
+                        val = 'подключено';
+                        OptionsPage.connected = true;
+                      });
+                    } catch (e) {
+                      setState(() {
+                        OptionsPage.connected = false;
+                        val = 'Ошибка подключения';
+                      });
+                    }
+                  },
                   icon:
-                      connected
+                      OptionsPage.connected
                           ? Icon(Icons.check_circle, color: Colors.lightGreen)
                           : Icon(Icons.cancel, color: Colors.red),
                 ),

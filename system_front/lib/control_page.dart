@@ -21,11 +21,6 @@ class _ControlPageState extends State<ControlPage> {
   bool connectd = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final style = ElevatedButton.styleFrom(
       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -130,7 +125,7 @@ class _ControlPageState extends State<ControlPage> {
 
   Widget informationWidget() {
     if (isOptions) {
-      return OptionsPage(connected: connectd);
+      return OptionsPage();
     }
     if (isUsers) {
       return UserPage();
